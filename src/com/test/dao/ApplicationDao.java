@@ -20,8 +20,7 @@ public class ApplicationDao {
 		
 		Product prod = null;
 		List <Product> products = new ArrayList();
-		
-		
+			
 	try{
 		Connection connection = DBConnection.getConnectionToDatabase();
 		String query = "select * from products where product_name like '%"+searchString+"%'";
@@ -38,21 +37,15 @@ rs = st.executeQuery(query);
 		prod.setProductImgPath("productImgPath");
 		prod.setProductName("productName");
 		products.add(prod);	
-	
 	}
-	
-	
 	
 	}catch(SQLException ex) {
 		ex.printStackTrace();
 	}
 	
-	
 return products;}
 
-
-
-public int registeruser(User user) {
+	public int registeruser(User user) {
 	
 	int rowsAffected = 0;
 	
@@ -67,14 +60,12 @@ public int registeruser(User user) {
 //set parameter with prepared statement
 	pst = connection.prepareStatement(queryForRegister);
 	
-	
 	pst.setString( 1, user.getUsername());
 	pst.setString( 2, user.getPassword());
 	pst.setString( 3, user.getFirstName());
 	pst.setString( 4, user.getLastName());
 	pst.setInt( 5, user.getAge());
 	pst.setString( 6, user.getActivity());
-
 
 	rowsAffected = pst.executeUpdate();
 	
@@ -85,5 +76,35 @@ public int registeruser(User user) {
 	return rowsAffected;
  }
 
+public Boolean validateUser(String username, String password) {
+	boolean isValidUser = false;
+	try {
+		
+		//get the connection for the database
+		Connection connection = DBConnection.getConnectionToDatabase();
+		
+		//write the insert query
+		String sqlQuery = "select * from users where username = ? and password = ?";
+		
+		//set the parameters with PreparedStatement
+		
+		PreparedStatement statement = connection.prepareStatement(sqlQuery);
+		statement.setString(1,username);
+		statement.setString(2, username);
+		
+		//execute the statement and check whether user exists
+		
+		ResultSet rs = statement.executeQuery();
+		
+		while (rs.next()) {
+			
+			isValidUser=true;
+		}
+	}catch(Exception exception) {
+		exception.printStackTrace();
+	}
 
-}
+
+return isValidUser;
+
+}}
