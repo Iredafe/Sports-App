@@ -49,7 +49,7 @@ String search = (String)session.getAttribute("search");
 
 		// get the search results from dao
 ApplicationDao dao = new ApplicationDao();
-List <Product> products = dao.searchProducts(search);
+List <Product> products = dao.searchProducts(search, null);
 
 		// set the search results in request scope
 request.setAttribute("products", products);

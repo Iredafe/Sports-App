@@ -40,5 +40,18 @@
   <param-value> jdbc:mysql://localhost:3306/hplus  </param-value>
   </context-param>
   
+  <filter>
+  <filter-name>AuthenticationFilter</filter-name>
+  <filter-class>com.test.filters.AuthenticationFilter</filter-class>
+  </filter>
+
+
+<filter-mapping>
+<filter-name>AuthenticationFilter</filter-name>
+<url-pattern>/HPlusSample/*</url-pattern>
+</filter-mapping>
+
+
+  
   
 </web-app>
